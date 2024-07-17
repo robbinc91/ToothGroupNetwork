@@ -116,7 +116,7 @@ def get_clustering_labels(moved_points, labels):
     for i in range(label_points_arr.shape[0]):
         eg_values.append(get_eg_values(core_label_points_arr[i][:,:3]))
     eg_values = np.array(eg_values)
-
+    print(eg_values)
     eg_values_first_axis = eg_values[:,0]
     sorted_idxes = np.argsort(-eg_values_first_axis)
     eg_values_first_axis = eg_values_first_axis[sorted_idxes]
