@@ -22,8 +22,15 @@ class InferencePipeLine:
         self.bdl_module.load_state_dict(torch.load(self.config["boundary_model_info"]["load_ckpt_path"]))
 
     def __call__(self, stl_path):
-        DEBUG=False
+        
         _, mesh = gu.read_txt_obj_ls(stl_path, ret_mesh=True, use_tri_mesh=True) #TODO slow processing speed
+        return self.__process(mesh)
+
+    def predict(self, mesh):
+        return self.__process(mesh)
+    
+    def __process(self, mesh):
+        DEBUG=False
         mesh = mesh.remove_duplicated_vertices()
         vertices = np.array(mesh.vertices)
         n_vertices = vertices.shape[0]
@@ -290,7 +297,7 @@ class InferencePipeLine:
         xyz_cpu = sampled_feats[:,:3].copy() # N',3
         tree = KDTree(xyz_cpu, leaf_size=40)
 
-        bd_labels = np.zeros(org_feats.shape[0]) # N
+        bd_labels = np.zeros(org_feats.shape[0]) # Ns
         ps_labels = np.zeros(org_feats.shape[0]) # N
         near_points = tree.query(org_feats[:,:3], k=40, return_distance=False, )
 

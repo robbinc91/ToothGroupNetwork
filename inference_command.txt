@@ -1,0 +1,1 @@
+python start_inference.py --input_dir_path D:/osmani/teeth/ToothGroupNetwork/data/3D_scans_per_patient/ --split_txt_path base_name_test_fold_top_40.txt --save_path D:/osmani/teeth/ToothGroupNetwork/data/output/ --model_name tgnet_fps
